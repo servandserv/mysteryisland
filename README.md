@@ -1,5 +1,5 @@
 # MysteryIsland: adventure game
 
-[http://www.battleship.ru/myst]
+[MysteryIsland](http://www.battleship.ru/myst)
 
 
