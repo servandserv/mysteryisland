@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+	<title>Mystery Island</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="css/libs/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/libs/pure/pure-min.css" />
+	<link rel="stylesheet" type="text/css" href="css/libs/pure/grids-responsive-min.css" />
+	<link rel="stylesheet" type="text/css" href="css/myst.min.css" />
+    </head>
+    <body>
+	<div class="header">
+	    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+		<a class="pure-menu-heading" href="">Mystery Island</a>
+
+		<ul>
+		    <li id="menu-home" class="pure-menu-selected"><a href="index.html">Home</a></li>
+			<li id="menu-game"><a href="index.html#game">Game</a></li>
+		    <li id="menu-help"><a href="index.html#help">Help</a></li>
+		</ul>
+	    </div>
+	</div>
+	
+	<div id="view">
+	</div>
+		
+	<script id="tpl-intro" type="text/template">
+	    <div class="splash-container">
+			<div class="splash">
+				<h1 class="splash-head">Mystery Island</h1>
+				<p class="splash-subhead">
+					stay up, never come down, try to survive!
+				</p>
+				<p>
+					<a id="get-started" href="#game" class="pure-button pure-button-primary">Get Started</a>
+				</p>
+			</div>
+	    </div>
+
+	    <div class="content-wrapper">
+			<div class="content">
+				<h2 class="content-head is-center">Preface</h2>
+				<div class="pure-g">
+					<div class="pure-u-1-8"></div>
+					<div class="pure-u-3-4">
+						<%= $("#tpl-preface").html() %>
+					</div>
+					<div class="pure-u-1-8" style="text-align:centre;"></div>
+				</div>
+			</div>
+	    </div>
+	</script>
+	
+	<script id="tpl-preface" type="text/template">
+		<p>
+			We in our childhood all read the novels of J.Verne  "Mysterious Island" and D.Defoe  
+			"The Adventures of Robinson Crusoe." We admired the man who managed to survive on a desert island, 
+			having overcome hunger, having produced a fire and building a home. After reading about the ordeal 
+			of Robinson and thrown the book on the shelf, we remain confident that the Centre will not happen 
+			like that we never find ourselves alone somewhere on a desert island. However, and we would do 
+			well to remember that in the 21st century periodically crash-ships, planes fall, sink the boat 
+			and the people are among the deserted islands, in the impenetrable thickets of the tropics, 
+			among the bare rocks one on one with the pleasures of wildlife ...
+		</p>
+		<p>
+			And then we will have to think, to believe, to work, to remember, to invent ...
+		</p>
+		<p>
+			So take care of yourself in advance and today we ask the question: what will I do, being on a 
+			desert island, what I can do what I can, will I survive ?
+		</p>
+		<p>
+			First of all, do not panic, maintain sobriety of thought and not give in to negative emotions. 
+			We're still alive and therefore a cause for joy is still there. Soon relatives score anxiety 
+			and we will start looking. Therefore, all thoughts should be focused only on saving. If you fall 
+			down in the Spirit, it can be fatal. It will power, strength of mind will help you to survive in 
+			unfamiliar conditions. Should strive to fill your entire day useful activities that could distract 
+			you from unnecessary thoughts.
+		</p>
+		<p>
+			<a href="#game" class="pure-button pure-button-primary">Lets go ...</a>
+		</p>
+	</script>
+		
+	<script id="tpl-help" type="text/template">
+		<div class="pure-g">
+			<div  class="pure-u-1">
+				<%= $("#tpl-help-preface").html() %>
+				<% var tmpl = _.template($('#tpl-help-components').html()) %>
+				<%= tmpl({components:components}) %>
+			</div>
+		</div>
+	</script>
+	
+	<script id="tpl-help-preface" type="text/template">
+		<h1>Nature & Artifacts</h1>
+		<p>
+			Here you can look at the things you can make and get on the island carefully look at this list and use it as help. Some of the artifacts are available at the start of the quiz. But some of them you need to make yourself. To make one of these artifacts you need to put two or more available artifacts together. Some artifacts can used by themselves like rain. It can already makes drinking water. In this game you will have to get artifacts and make other ones. For Example you will need to get a raft and  swim away from the island, and you will need to get food and sleep and survive, for this you will need to, press on the two or one artifact to make another one. In this game you don't need to go for points you need to try and survive. But the more points you get at the end the better.
+		</p>
+		<p>
+Some of them give you energy but take away food and water and some give you food and water and take away energy. For Example: hunting gives you food but takes away energy. And sleep gives you energy but takes away food and water. How much the activity takes away or gives will say on the bar of the activity.
+		</p>
+		<p>
+		At the end of the challange you have to build raft and prepare for a long trip to home.
+		</p>
+	</script>
+	
+	<script id="tpl-help-components" type="text/template">
+		<ul class="components-help-view">
+			<% _.each(components, function(component) { %>
+				<li>
+					<div>
+						<img src="images/<%= component.src %>.png"></img>
+						<h2><%= component.title %></h2>
+						<p><%= component.desc %></p>
+						<p>
+							[ <%= component.visible?"ready to use":"needs to be made" %>,&#160;
+								chance of visibility when it's ready - <%= component.probability * 100 %>%
+							]
+						</p>
+					</div>
+				</li>
+			<% }); %>
+		</ul>
+	</script>
+	
+	<script id="tpl-help-components-print" type="text/template">
+		<table class="pure-table pure-table-striped pure-table-bordered">
+			<% _.each(components, function(component) { %>
+				<tr>
+					<td>
+						<img src="images/<%= component.src %>_64x64.png"></img>
+					</td>
+					<td>
+						<h2><%= component.title %></h2>
+						<p><%= component.desc %></p>
+						<p>
+							[ <%= component.visible?"ready to use":"needs to be made" %>,&#160;
+								chance of visibility when it's ready - <%= component.probability * 100 %>%
+							]
+						</p>
+					</td>
+				</tr>
+			<% }); %>
+		</table>
+	</script>
+	
+	<script id="tpl-active-component" type="text/template">
+		<div class="active-component">
+			<img src="images/<%= src %>_64x64.png"></img>
+			<h2><%= title %></h2>
+		</div>
+	</script>
+	
+	<script id="tpl-game" type="text/template">
+		<div class="pure-g">
+			<div class="pure-u-1">
+				<p style="padding:.2em;font-size:.7em;text-align:center;">
+				*To make an action you must select right components on the left side. After you selected 
+				needed components all ready actions showed on right side. To select component just click on it.
+				To delectect it click on it again.</p>
+			</div>
+			<div id="active-components-layout" class="pure-u-1 pure-u-sm-5-12">
+			</div>
+			<div id="ready-actions-layout" class="pure-u-1 pure-u-sm-5-12">
+			</div>
+			<div id="results-layout" class="pure-u-1 pure-u-sm-1-6"></div>
+		</div>
+	</script>
+	
+	<script id="tpl-results" type="text/template">
+		<tr><td>Energy:</td>
+			<td <% if( energy < 0 ) {  %>
+				style='color:red'
+				<% } else if( energy < 50 ) { %>
+				style='color:gold'
+				<% } else { %>
+				style='color:green'
+				<% } %> ><%= energy %></td></tr>
+		<tr><td>Food:</td>
+			<td <% if( food < 0 ) {  %>
+				style='color:red'
+				<% } else if( food < 50 ) { %>
+				style='color:gold'
+				<% } else { %>
+				style='color:green'
+				<% } %> ><%= food %></td></tr>
+		<tr><td>Water:</td>
+			<td <% if( water < 0 ) {  %>
+				style='color:red'
+				<% } else if( water < 50 ) { %>
+				style='color:gold'
+				<% } else { %>
+				style='color:green'
+				<% } %> ><%= water %></td></tr>
+		<tr><td>Points:</td><td><%= points %></td></tr>
+		<tr><td>Days:</td><td><%= days %></td></tr>
+		<tr><td>Rating:</td><td><%= rating %></td></tr>
+	</script>
+	
+	<script id="tpl-ready-action" type="text/template">
+		<div class="ready-action">
+			<button type="button" class="pure-button pure-button-success do-it">Do it!</button>
+			<h2><%= name %></h2>
+			<p><%= comment %></p>
+			<p>
+				Energy <span class="fa-stack fa-lg" <% if(energy > 0) { %>
+						style="color:green;"
+					<% } else if( energy < 0 ) { %>
+						style="color:red;"
+					<% } %> >
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-stack-1x fa-inverse"><span><%= energy %></span></i>
+					</span>&#160;
+				Food: <span class="fa-stack fa-lg" <% if(food > 0) { %>
+						style="color:green;"
+					<% } else if( food < 0 ) { %>
+						style="color:red;"
+					<% } %> >
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-stack-1x fa-inverse"><span><%= food %></span></i>
+					</span>&#160;
+				Water: <span class="fa-stack fa-lg" <% if(water > 0) { %>
+						style="color:green;"
+					<% } else if( water < 0 ) { %>
+						style="color:red;"
+					<% } %> >
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-stack-1x fa-inverse"><span><%= water %></span></i>
+					</span>&#160;
+				Points: <span class="fa-stack fa-lg"  <%= points ? "style='color:green;'" : "" %> >
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-stack-1x fa-inverse"><span><%= points %></span></i>
+					</span>
+			</p>
+		</div>
+	</script>
+	
+	<script id="tpl-action-print" type="text/javascript">
+		<tr class="ready-action-print">
+			<td><h2><%= name %></h2></td>
+			<td>
+				<p><%= comment %></p>
+			</td>
+			<td style="white-space:nowrap">
+				<p style="text-align:right; font-size:.7em;">
+					Energy <span class="fa-stack fa-lg" <% if(energy > 0) { %>
+							style="color:green;"
+						<% } else if( energy < 0 ) { %>
+							style="color:red;"
+						<% } %> >
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-stack-1x fa-inverse"><span><%= energy %></span></i>
+						</span><br/>
+					Food: <span class="fa-stack fa-lg" <% if(food > 0) { %>
+							style="color:green;"
+						<% } else if( food < 0 ) { %>
+							style="color:red;"
+						<% } %> >
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-stack-1x fa-inverse"><span><%= food %></span></i>
+						</span><br/>
+					Water: <span class="fa-stack fa-lg" <% if(water > 0) { %>
+							style="color:green;"
+						<% } else if( water < 0 ) { %>
+							style="color:red;"
+						<% } %> >
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-stack-1x fa-inverse"><span><%= water %></span></i>
+						</span><br/>
+					Points: <span class="fa-stack fa-lg"  <%= points ? "style='color:green;'" : "" %> >
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-stack-1x fa-inverse"><span><%= points %></span></i>
+						</span>
+				</p>
+			</td>
+		</tr>
+	</script>
+	
+	<script id="tpl-end" type="text/template">
+		<h1>You died!</h1>
+		<p>You ran out of everything!</p>
+		<p><img src="images/troll_blue.png"> </img></p>
+		<p>
+			<a id="try-again" href="#game" class="pure-button pure-button-secondary">Try again!</a>
+		</p>
+		<table class="pure-table pure-table-striped">
+			<% var tmpl = _.template($('#tpl-results').html()) %>
+			<%= tmpl(this.model.toJSON()) %>
+		</table>
+	</script>
+	
+	<script id="tpl-victory" type="text/template">
+		<h1>You win!</h1>
+		<p>It took <%= days %> days. Your score - <%= points %> points.</p>
+		<p>Your rating - <%= rating %>.</p>
+		<p><img src="images/raft_blue.png"> </img></p>
+		<p>
+			<a id="one-more" href="#game" class="pure-button">Next game?</a>
+		</p>
+		<table class="pure-table pure-table-striped">
+			<% var tmpl = _.template($('#tpl-results').html()) %>
+			<%= tmpl(this.model.toJSON()) %>
+		</table>
+	</script>
+	
+	<script id="tpl-print" type="text/template">
+		<div class="print-layout">
+			<p style="text-align:center">
+				<img src="images/raft_blue.png"></img>
+			</p>
+			<h1 style="padding:3em 0">Mystery Island</h1>
+			<%= $("#tpl-preface").html() %>
+			<%= $("#tpl-help-preface").html() %>
+			<% var template = _.template($('#tpl-help-components-print').html()) %>
+			<%= template({ components: conf.components }) %>
+			<p>
+				<a class="pure-button pure-button-primary">And now list of actions ...</a>
+			</p>
+			<h1>Possible actions</h1>
+			<table class="pure-table pure-table-striped pure-table-bordered">
+				<% _.each(conf.actions, function(action) { %>
+					<% template = _.template($('#tpl-action-print').html()) %>
+					<%= template(action) %>
+				<% }); %>
+			</table>
+		</div>
+	</script>
+	
+	<script type="text/javascript" src="js/libs/jquery-1.11.1.min.js">;</script>
+	<script type="text/javascript" src="js/libs/underscore-min.js">;</script>
+	<script type="text/javascript" src="js/libs/backbone-min.js">;</script>
+	<script type="text/javascript" src="js/libs/backbone.localStorage-min.js">;</script>
+	<script type="text/javascript" src="js/myst.min.js">;</script>
+	
+    </body>
+</html>
