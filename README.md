@@ -1,4 +1,4 @@
-# MysteryIsland: adventure game
+### MysteryIsland: adventure game
 
 [MysteryIsland](http://www.battleship.ru/myst)
 
